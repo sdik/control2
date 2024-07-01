@@ -1,0 +1,35 @@
+# config/locales/trestle.pt-BR.yml
+pt-BR:
+  trestle:
+    common:
+      save: "Salvar"
+      cancel: "Cancelar"
+      edit: "Editar"
+      delete: "Excluir"
+      back: "Voltar"
+    dashboard:
+      title: "Painel"
+    navigation:
+      admin: "Administração"
+    errors:
+      title: "Ocorreu um erro"
+      not_found: "Não encontrado"
+      unauthorized: "Não autorizado"
+    actions:
+      index: "Listar %{resource}"
+      new: "Novo %{resource}"
+      create: "Criar %{resource}"
+      update: "Atualizar %{resource}"
+      destroy: "Excluir %{resource}"
+    forms:
+      actions:
+        save: "Salvar %{resource}"
+        cancel: "Cancelar"
+      labels:
+        title: "Título"
+        content: "Conteúdo"
+        published_at: "Publicado em"
+        expired_at: "Expira em"
+        category: "Categoria"
+        published: "Publicado"
+        featured: "Destaque"

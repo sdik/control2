@@ -5,11 +5,13 @@ Trestle.resource(:contas) do
 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
+  table do
+     column :nome
+     column :tipo
+     column :saldo
   #   column :created_at, align: :center
-  #   actions
-  # end
+     actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #
@@ -33,3 +35,4 @@ Trestle.resource(:contas) do
   #   params.require(:conta).permit(:name, ...)
   # end
 end
+

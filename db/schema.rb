@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_28_194705) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_01_175117) do
   create_table "contas", force: :cascade do |t|
     t.string "nome"
     t.string "tipo"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_28_194705) do
     t.date "data_recebimento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
     t.index ["pessoa_id"], name: "index_pagamentos_on_pessoa_id"
   end
 

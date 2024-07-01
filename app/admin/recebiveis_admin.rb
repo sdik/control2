@@ -35,4 +35,5 @@ Trestle.resource(:recebiveis) do
   # params do |params|
   #   params.require(:recebivel).permit(:name, ...)
   # end
-end
+end 
+

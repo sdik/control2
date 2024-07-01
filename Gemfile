@@ -72,3 +72,4 @@ group :test do
 end
 
 gem 'trestle'
+gem 'rails-i18n'

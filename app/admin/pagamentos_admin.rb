@@ -2,25 +2,36 @@ Trestle.resource(:pagamentos) do
   menu do
     item :pagamentos, icon: "fa fa-star"
   end
-
+  scope :aberto, -> { Pagamento.where(status: "0") }, default: true
+  scope :fechado, -> { Pagamento.where(status: "1") }
+ 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+    column :id
+    column :pessoa, link: true, sort: :nome do |pagamentos|
+      pagamentos.pessoa.nome if pagamentos.pessoa.present?
+    end
+     column :descricao
+     column :valor, align: :right, format: :currency
+     column :data_recebimento
+     actions
+   end
 
   # Customize the form fields shown on the new/edit views.
   #
-  # form do |pagamento|
+  form do |pagamento|
   #   text_field :name
-  #
+      collection_select :pessoa_id, Pessoa.all, :id, :nome, label: "Pessoa"
+      text_field :descricao
+      text_field :valor, label: "Valor", help: "Insira o valor da transação"
+      date_field :data_recebimento
+      select :status, { "Aberto" => 0, "Fechado" => 1 }
   #   row do
   #     col { datetime_field :updated_at }
   #     col { datetime_field :created_at }
   #   end
-  # end
+   end
 
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly
