@@ -2,14 +2,14 @@ Trestle.resource(:pagamentos) do
   menu do
     item :pagamentos, icon: "fa fa-star"
   end
-  scope :aberto, -> { Pagamento.where(status: "0") }, default: true
-  scope :fechado, -> { Pagamento.where(status: "1") }
+  scope :aberto, -> { Pagamento.where(status: :aberto) }, default: true
+  scope :fechado, -> { Pagamento.where(status: :fechado)}
  
   # Customize the table columns shown on the index view.
   #
   table do
     column :id
-    column :pessoa, link: true, sort: :nome do |pagamentos|
+    column :pessoa, sort: :nome do |pagamentos|
       pagamentos.pessoa.nome if pagamentos.pessoa.present?
     end
      column :descricao
@@ -25,14 +25,19 @@ Trestle.resource(:pagamentos) do
       collection_select :pessoa_id, Pessoa.all, :id, :nome, label: "Pessoa"
       text_field :descricao
       text_field :valor, label: "Valor", help: "Insira o valor da transação"
-      date_field :data_recebimento
-      select :status, { "Aberto" => 0, "Fechado" => 1 }
+
+      #select :status, { "Aberto" => :aberto, "Fechado" => :fechado }
   #   row do
   #     col { datetime_field :updated_at }
   #     col { datetime_field :created_at }
   #   end
+      sidebar do
+        select :status, { "Aberto" => :aberto, "Fechado" => :fechado }
+        date_field :data_recebimento
+      end
    end
 
+   
   # By default, all parameters passed to the update and create actions will be
   # permitted. If you do not have full trust in your users, you should explicitly
   # define the list of permitted parameters.
