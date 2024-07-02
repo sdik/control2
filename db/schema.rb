@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_01_175117) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_02_165908) do
   create_table "contas", force: :cascade do |t|
     t.string "nome"
     t.string "tipo"
@@ -23,10 +23,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_01_175117) do
     t.integer "pessoa_id", null: false
     t.string "descricao"
     t.decimal "valor"
-    t.date "data_recebimento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.decimal "valorpago"
+    t.integer "conta_id"
+    t.date "data_vencimento"
+    t.date "data_pagamento"
+    t.index ["conta_id"], name: "index_pagamentos_on_conta_id"
     t.index ["pessoa_id"], name: "index_pagamentos_on_pessoa_id"
   end
 
@@ -60,9 +64,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_01_175117) do
     t.date "data_recebimento"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "conta_id"
+    t.date "vencimento"
+    t.decimal "valorpago"
+    t.integer "status"
+    t.index ["conta_id"], name: "index_recebiveis_on_conta_id"
     t.index ["pessoa_id"], name: "index_recebiveis_on_pessoa_id"
   end
 
+  add_foreign_key "pagamentos", "contas"
   add_foreign_key "pagamentos", "pessoas"
+  add_foreign_key "recebiveis", "contas"
   add_foreign_key "recebiveis", "pessoas"
 end

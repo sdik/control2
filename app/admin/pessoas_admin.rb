@@ -1,15 +1,16 @@
 Trestle.resource(:pessoas) do
   menu do
-    item :pessoas, icon: "fa fa-star"
+    item :pessoas, icon: "fa fa-users"
   end
 
   # Customize the table columns shown on the index view.
   #
-  # table do
-  #   column :name
-  #   column :created_at, align: :center
-  #   actions
-  # end
+  table do
+     column :nome
+     column :email
+     column :telefone
+     actions
+  end
 
   # Customize the form fields shown on the new/edit views.
   #

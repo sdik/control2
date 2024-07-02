@@ -1,10 +1,11 @@
 Trestle.resource(:pagamentos) do
   menu do
-    item :pagamentos, icon: "fa fa-star"
+    item :pagamentos, icon: "fa fa-barcode"
   end
   scope :aberto, -> { Pagamento.where(status: :aberto) }, default: true
+  scope :vencidos, -> { Pagamento.where(status: :aberto).where('data_vencimento < ?', Date.today) }
+  scope :vence_hoje, -> { Pagamento.where(status: :aberto).where('data_vencimento = ?', Date.today) }
   scope :fechado, -> { Pagamento.where(status: :fechado)}
- 
   # Customize the table columns shown on the index view.
   #
   table do
@@ -14,7 +15,9 @@ Trestle.resource(:pagamentos) do
     end
      column :descricao
      column :valor, align: :right, format: :currency
-     column :data_recebimento
+     column :data_vencimento, align: :right, sort: :data_vencimento do |pagamento|
+      pagamento.data_vencimento.strftime('%d/%m/%y') if pagamento.data_vencimento.present?
+    end
      actions
    end
 
@@ -24,7 +27,8 @@ Trestle.resource(:pagamentos) do
   #   text_field :name
       collection_select :pessoa_id, Pessoa.all, :id, :nome, label: "Pessoa"
       text_field :descricao
-      text_field :valor, label: "Valor", help: "Insira o valor da transação"
+      date_field :data_vencimento
+      text_field :valor, label: "Valor", format: :currency, help: "Insira o valor da transação"
 
       #select :status, { "Aberto" => :aberto, "Fechado" => :fechado }
   #   row do
@@ -32,8 +36,11 @@ Trestle.resource(:pagamentos) do
   #     col { datetime_field :created_at }
   #   end
       sidebar do
+       
+        date_field :data_pagamento
+        collection_select :conta_id, Conta.all, :id, :nome, include_blank: true   
+        text_field :valorpago, label: "Valor Pago", help: "Insira o valor pagamento final"
         select :status, { "Aberto" => :aberto, "Fechado" => :fechado }
-        date_field :data_recebimento
       end
    end
 
